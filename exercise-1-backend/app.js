@@ -51,7 +51,7 @@ app.post('/api/recipes', (req, res, next) => {
 });
 
 //get request to retrieve selected recipe from the database
-app.use('/api/recipes/:id', (req, res, next) => {
+app.get('/api/recipes/:id', (req, res, next) => {
   Recipe.findOne({
     _id: req.params.id
   }).then(
@@ -77,7 +77,7 @@ app.put('/api/recipes/:id', (req, res, next) => {
     difficulty: req.body.difficulty,
     time: req.body.time
   });
-  Recipe.updateOne({_id: req.params.id}, thing).then(
+  Recipe.updateOne({_id: req.params.id}, recipe).then(
     () => {
       res.status(201).json({
         message: "Recipe updated successfully"
@@ -110,7 +110,7 @@ app.delete('/api/recipes/:id', (req, res, next) => {
 });
 
 //get request to retrieve all recipes in the database
-app.use('/api/recipes', (req, res, next) => {
+app.get('/api/recipes', (req, res, next) => {
   Recipe.find().then(
     (recipes) => {
       res.status(200).json(recipes);
